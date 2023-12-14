@@ -1,6 +1,6 @@
 # Basic Information
 
-This code is for the submission for Pattern Recognition 2024 ('No Fear of Representation Bias: Graph Contrastive Learning with Calibration and Fusion').
+This code is for the submission for Pattern Recognition ('No Fear of Representation Bias: Graph Contrastive Learning with Calibration and Fusion').
 
 The paper is under reivew. Please don't quote or use it for other purposes at present.
 
