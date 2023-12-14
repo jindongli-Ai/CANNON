@@ -1,0 +1,23 @@
+python main.py                          \
+--root '../../CANNON/'                   \
+--dataset chameleon                     \
+--split_type random                     \
+--seed 12345                            \
+--learning_rate 0.005                   \
+--num_input_dim 2325                    \
+--num_hidden 512                        \
+--num_proj_hidden 512                   \
+--num_layers 2                          \
+--num_proj_layers 2                     \
+--drop_edge_rate_1 0.2                  \
+--drop_feature_rate_1 0.3               \
+--drop_edge_rate_2 0.3                  \
+--drop_feature_rate_2 0.4               \
+--tau 0.4                               \
+--need_FA False                         \
+--FA_p 0.5                                \
+--num_trials 5                         \
+--num_epochs 800                        \
+--eval_freq 10                          \
+--gpu_id 0                              \
+
