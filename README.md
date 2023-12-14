@@ -25,7 +25,7 @@ When running the code, they will be automatically downloaded from the correspond
 
 # Hardware used for inplementation
 
-- GPU: A40 (48GB, actually available at around 45 GB)
+- GPU: A40 (48GB)
 - OS: Linux (Slurm)
 
 # Usage
