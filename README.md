@@ -32,7 +32,7 @@ When running the code, they will be automatically downloaded from the correspond
 
 Run node classification on CiteSeer dataset:
 ```
-bash script/CiteSeer.sh
+bash script/citeseer.sh
 ```
 
 # Reproducibility
