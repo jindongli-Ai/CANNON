@@ -50,3 +50,11 @@ More importantly, GCL models typically enter a stable convergence regime after s
 
 This design also improves reproducibility. Instead of hiding the training-duration selection behind a single pre-specified epoch number, we explicitly expose the full performance trajectory and the sorted results, allowing users to verify whether the reported score is supported by a stable range of converged checkpoints. Thus, tot_res[0] should be interpreted together with the neighboring top-ranked epochs: when these values are close, the reported result reflects a stable converged regime rather than an accidental fluctuation at one particular epoch.
 
+
+# Acknowledgement
+This codebase is developed based on the public implementation of COSTA (KDD 2022):
+https://github.com/yifeiacc/COSTA.
+We sincerely thank the authors for releasing their code and facilitating reproducible research in graph contrastive learning. Parts of our training pipeline and downstream linear-evaluation implementation were adapted from the COSTA codebase.
+
+
+
