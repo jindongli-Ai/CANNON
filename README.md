@@ -37,7 +37,7 @@ bash script/citeseer.sh
 
 
 # Implementation Details
-For the Coauthor-Physics dataset, we enable an additional Gaussian random-projection step during training (need_FA=True, FA_p=0.45). Specifically, the encoder representations are projected from \(N\) nodes to \(k=\lfloor 0.45N \rfloor\) representations before computing the contrastive objectives. This operation is used only during training for this large-scale dataset and does not modify the inference representation or the CANNON architecture.
+For the Coauthor-Physics dataset, we enable an additional Gaussian random-projection step (COSTA, KDD 2022) during training (need_FA=True, FA_p=0.45). Specifically, the encoder representations are projected from \(N\) nodes to \(k=\lfloor 0.45N \rfloor\) representations before computing the contrastive objectives. This operation is used only during training for this large-scale dataset and does not modify the inference representation or the CANNON architecture.
 
 
 # Reproducibility
