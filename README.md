@@ -35,6 +35,11 @@ Run node classification on CiteSeer dataset:
 bash script/citeseer.sh
 ```
 
+
+# Implementation Details
+For the Coauthor-Physics dataset, we enable an additional Gaussian random-projection step during training (need_FA=True, FA_p=0.45). Specifically, the encoder representations are projected from \(N\) nodes to \(k=\lfloor 0.45N \rfloor\) representations before computing the contrastive objectives. This operation is used only during training for this large-scale dataset and does not modify the inference representation or the CANNON architecture.
+
+
 # Reproducibility
 
 1. We make every effort to adjust hyperparameters for baselines to achieve optimal performance. When the obtained results are similar to the reported values in the paper, we report the values in the published paper.
