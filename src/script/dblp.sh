@@ -16,7 +16,6 @@ python main.py                          \
 --tau 0.7                               \
 --need_FA False                         \
 --FA_p 0.4                              \
---num_trials 5                          \
 --num_epochs 1500                       \
 --eval_freq 10                          \
 --gpu_id 0                              \

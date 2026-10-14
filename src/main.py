@@ -46,7 +46,6 @@ if __name__ == '__main__':
     
     parser.add_argument('--need_FA',            type=str, default=False)
     parser.add_argument('--FA_p',               type=float, default=0.5)
-    parser.add_argument('--num_trials',         type=int, default=10)
     parser.add_argument('--num_epochs',         type=int, default=800)
     parser.add_argument('--eval_freq',          type=int, default=10)                      
     parser.add_argument('--gpu_id',             type=int, default=0)
@@ -60,19 +59,7 @@ if __name__ == '__main__':
     set_seed(args['seed'])    
     print('CANNON')
     
-    #-------------------------------------------------------------------------------------------------------------------------#
-    tot_res = []
-    for ti in range(args['num_trials']):
-        cur = Runner(conf=args).execute()
-        print('==============================================================================')
-        print('DATASET:{} | {}-th TRIAL | ACC: {}'.format(args['dataset'], ti, cur))
-        print('==============================================================================')
-    
-        tot_res.append(cur)
-    
-    print(tot_res)
-    res_mean = np.mean(tot_res)
-    res_std = np.std(tot_res)
-    print('The final reuslts of DATASET: {} | based on {} TRIALS | is ACC: {} +- {}'.format(args['dataset'], args['num_trials'], res_mean, res_std))
-    
-    
+    accuracy = Runner(conf=args).execute()
+    print('==============================================================================')
+    print('DATASET:{} | ACC: {}'.format(args['dataset'], accuracy))
+    print('==============================================================================')
