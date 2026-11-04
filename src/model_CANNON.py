@@ -123,6 +123,7 @@ class Runner(BaseGSSLRunner):
         self.dataset = get_dataset(self.config['data_dir'], self.config['dataset'])
 
         self.data = self.dataset[0].to(self.device)
+        self.split = get_split(num_samples=self.data.num_nodes, train_ratio=0.1, val_ratio=0.1)
         
     def train(self):
 
@@ -154,8 +155,6 @@ class Runner(BaseGSSLRunner):
         
 
         tot_res = []
-        cur_best_F1mi = 0
-        cur_best_test_ACC = 0
         
 
         with tqdm(total=self.config['num_epochs'], desc='(T)') as pbar:
@@ -208,16 +207,14 @@ class Runner(BaseGSSLRunner):
 
                 if epoch % self.config['eval_freq'] == 0:
                     cur_F1mi, cur_val_acc, cur_test_acc = self.test(self.config['dataset'], epoch=epoch, t=self.config["split_type"])
-                    cur_best_F1mi = max(cur_best_F1mi, cur_F1mi)
-                    cur_best_test_ACC = max(cur_best_test_ACC, cur_test_acc)
-                    print('current epoch -- F1mi: {}, val_acc: {}, test_acc: {}, at the {}-th epoch. | current the best F1mi is {}, best ACC is {}'.format(cur_F1mi, cur_val_acc, cur_test_acc, epoch, cur_best_F1mi, cur_best_test_ACC))
-                    tot_res.append((cur_F1mi, epoch))
+                    print(f'Epoch {epoch}: val_acc={cur_val_acc:.4f}, test_acc={cur_test_acc:.4f}, test_micro_f1={cur_F1mi:.4f}')
+                    tot_res.append((cur_val_acc, epoch, cur_test_acc, cur_F1mi))
                    
-        tot_res.sort(key = lambda x: (-x[0], x[1]))
-        print('current trial the best result is ACC: {}, at the {}-th epoch'.format(tot_res[0][0], tot_res[0][1]))
-        # for row in tot_res:
-        #     print(row)
-        return tot_res[0][0]
+        best_val_acc, best_epoch, test_acc, test_micro_f1 = max(
+            tot_res, key=lambda result: (result[0], -result[1]))
+        print(f'Validation-selected epoch {best_epoch}: val_acc={best_val_acc:.4f}, '
+              f'test_acc={test_acc:.4f}, test_micro_f1={test_micro_f1:.4f}')
+        return test_acc
        
 
     def test(self, data_name, epoch, t="random"):
@@ -240,10 +237,9 @@ class Runner(BaseGSSLRunner):
 
         #     z0 = p @ z0
         #-------------------------------- FA end -----------------------------#
-        split = get_split(num_samples=z0.size()[0], train_ratio=0.1, val_ratio=0.1)
 
     
-        result = LREvaluator()(z0, self.data.y, split)
+        result = LREvaluator()(z0, self.data.y, self.split)
         # wandb.log(result)                    
         print(f"(E): Best test F1Mi={result['micro_f1']:.4f}, F1Ma={result['macro_f1']:.4f}")
 
@@ -480,3 +476,5 @@ class TCF(nn.Module):
         res = torch.cat([feat_a, feat_b, A_output, B_output, feat_a + feat_b], dim = 1)
         return res
     
+
+
